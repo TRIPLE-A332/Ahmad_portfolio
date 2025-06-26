@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course-Based Project Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body.light-text {
+      color: white;
+    }
+
+    body.dark-text {
+      color: #112D38;
+    }
+
+
+    
+    nav a.active {
+      font-weight: 800;
+      font-size: 1.15rem;
+      transition: color 0.3s ease;
+    }
+
+    /* When on light background (like ml/dl/ds), use white */
+    body.light-text nav a.active {
+      color: #F2F4F1;
+    }
+
+    /* When on dark background (like web/tools), use dark text */
+    body.dark-text nav a.active {
+      color: #165267;
+    }
+    
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+      overflow: hidden; /* prevent outer scrollbars */
+    }
+
+    .snap-container {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+
+    section {
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.5s ease;
+      flex-direction: column;
+    }
+
+    section:nth-child(1) { background: #112D38F5; }
+    section:nth-child(2) { background: linear-gradient(135deg, #253D4D, #3E5A65); }
+    section:nth-child(3) { background: linear-gradient(135deg, #7B8D94, #B7C3C9); }
+    section:nth-child(4) { background: linear-gradient(135deg, #D9DFE3, #EAEDED); color: #112D38; }
+    section:nth-child(5) { background: #F2F4F1; color: #112D38; }
+
+    nav {
+      position: fixed;
+      top: 20px;
+      right: 40px;
+      z-index: 10;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: inherit;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 30px;
+      background-color: #165267;
+      color: #F2F4F1;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 11;
+      transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #1A3F4D;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .projects {
+      font-size: 1.2rem;
+      background: rgba(255,255,255,0.1);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+    }
+  </style>
+<style>
+.overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+
+.project-card:hover .overlay {
+  opacity: 1;
+}
+
+.project-card {
+  position: relative;
+  width: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  background-color: #1A3F4D;
+}
+
+.project-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(17, 45, 56, 0.95);
+  padding: 0.75rem 1rem;
+  display: none;
+  color: #F2F4F1;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.btn-group {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.project-card .btn {
+  background-color: #F2F4F1;
+  color: #112D38;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.project-card .btn:hover {
+  background-color: #1A3F4D; 
+  color: #F2F4F1;
+}
+
+.project-card.active .project-details {
+  display: block;
+}
+
+.btn {
+  background-color: #F2F4F1;
+  color: #112D38;
+  padding: 0.4rem 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #F2F4F1;
+}
+
+
+  #page-loader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: linear-gradient(135deg, #112D38, #165267);
+    color: #F2F4F1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    z-index: 99999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  }
+
+  #page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-text {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    align-items: start;
+    padding: 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .project-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1rem;
+    width: 280px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    overflow: visible;
+  }
+
+  .project-card:hover {
+    transform: scale(1.03);
+  }
+
+  .project-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+}
+
+  .project-card:hover img {
+    display: block;
+  }
+
+  .project-details {
+    display: none;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: #F2F4F1;
+  }
+
+</style>
+</head>
+<body>
+  <div id="page-loader">
+    <div class="loader-text">Loading Projects...</div>
+  </div>
+
+  <button id="back-button" class="back-button">← Back to Home</button>
+
+  <nav>
+    <a href="#ml">Machine Learning</a>
+    <a href="#dl">Deep Learning</a>
+    <a href="#ds">Data Science</a>
+    <a href="#web">Web/API</a>
+    <a href="#tools">Tools</a>
+  </nav>
+
+  <div class="snap-container">
+    <section id="ml">
+      <h1>Machine Learning</h1>
+      <div class="project-grid">  
+
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/RAG.png" alt="Project Image">
+        <div class="overlay">Biomedical RAG Assistant</div>
+        <div class="project-details">
+            Developed an offline domain specific <b>Retrieval-Augmented Generation</b> system using <b>LangChain</b>, <b>BioBERT</b>, <b>Mistral 7B LLM</b>, <b>FastAPI</b>, and <b>Qdrant</b>.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=wOGWTzy-kc0', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/RAG-medical-assistant', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">End-To-End Student Performance Prediction</div>
+        <div class="project-details">
+          Built and deployed a full ML pipeline using CatBoost, Flask, and AWS to predict student performance in real time.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=wOGWTzy-kc0', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/RAG-medical-assistant', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-2-dark.png" alt="Project Image">
+        <div class="overlay">Predictive Modelling in Machine Learning</div>
+        <div class="project-details">
+          Built and evaluated regression-based price prediction models with thorough preprocessing and performance metrics analysis.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </section>
+
+    <section id="dl">
+      <h1>Deep Learning</h1>
+      <div class="project-grid">  
+
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/aaa.jpg" alt="Project Image">
+        <div class="overlay">Hand Sync Presenter</div>
+        <div class="project-details">
+        Designed a computer vision-based system using OpenCV for gesture-controlled slide navigation with 88%+ accuracy.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=pDDjFSOUHFY', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/HandSync-Presenter', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">Neural Machine Translation (English–Spanish)</div>
+        <div class="project-details">
+        Built a seq2seq BiLSTM model with attention for translating English to Spanish, achieving strong BLEU scores on parallel corpora.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/RNN/NeuralMachineTranslation.ipynb', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/RNN/NeuralMachineTranslation.ipynb', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">IMDb Sentiment Analysis</div>
+        <div class="project-details">
+        Implemented and compared deep learning (LSTM) and classical (Logistic Regression) models for sentiment classification on 25,000 movie reviews.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/RNN/Sentiment_Analysis_RNN%26LSTM.ipynb', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/RNN/Sentiment_Analysis_RNN%26LSTM.ipynb', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">Supervised Autoencoder for Discriminative Feature Learning</div>
+        <div class="project-details">
+        Developed a supervised autoencoder on MNIST to learn 2D embeddings with improved class separability and classification accuracy.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/FNN/SAE-MNIST_2D_Embedding_and_Classification.ipynb', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/FNN/SAE-MNIST_2D_Embedding_and_Classification.ipynb', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">CIFAR-10 Image Classification with CNNs</div>
+        <div class="project-details">
+        Trained and optimized CNN models on the CIFAR-10 dataset, achieving 75%+ accuracy while evaluating regularization techniques.         
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/CNN/CNN_using_keras.ipynb', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/CNN/CNN_using_keras.ipynb', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+        
+
+      </div>
+    </section>
+
+    <section id="ds">
+      <h1>Data Science</h1>
+      <div class="project-grid">  
+
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">End-To-End Student Performance Prediction</div>
+        <div class="project-details">
+          Built and deployed a full ML pipeline using CatBoost, Flask, and AWS to predict student performance in real time.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=wOGWTzy-kc0', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/RAG-medical-assistant', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-2-dark.png" alt="Project Image">
+        <div class="overlay">Predictive Modelling in Machine Learning</div>
+        <div class="project-details">
+          Built and evaluated regression-based price prediction models with thorough preprocessing and performance metrics analysis.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">IMDb Sentiment Analysis</div>
+        <div class="project-details">
+        Implemented and compared deep learning (LSTM) and classical (Logistic Regression) models for sentiment classification on 25,000 movie reviews.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/RNN/Sentiment_Analysis_RNN%26LSTM.ipynb', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ML-DL_Algos/blob/main/RNN/Sentiment_Analysis_RNN%26LSTM.ipynb', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </section>
+
+    <section id="web">
+      <h1>Web Development & APIs</h1>
+      <div class="project-grid">  
+
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/TeleAI.png" alt="Project Image">
+        <div class="overlay">Telegram AI Assistant Bot</div>
+        <div class="project-details">
+          Built a voice- and text-enabled AI assistant using Gemini Pro and Faster-Whisper, deployed on Oracle Cloud for 24/7 low-cost operation.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/Telegram_AI_Assistant', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/Telegram_AI_Assistant', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/RestAPI.png" alt="Project Image">
+        <div class="overlay">RESTful User Management API</div>
+        <div class="project-details">
+          Designed and compared user management APIs using Flask, FastAPI, and Spring Boot with SQL backends and robust validation logic.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=bpLYmnXWz8g&feature=youtu.be', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/REST_API_project', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/Scraper.png" alt="Project Image">
+        <div class="overlay">Web-Based HTML Content Scraper</div>
+        <div class="project-details">
+          Built a Flask app using BeautifulSoup to extract and analyze keyword frequency from HTML content via web and CLI interfaces.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/Web_Scraper', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/Web_Scraper', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/project-1-dark.png" alt="Project Image">
+        <div class="overlay">Personal Portfolio Website</div>
+        <div class="project-details">
+          Designed and deployed a responsive portfolio site with interactive UI to showcase projects and resume, hosted on Netlify.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('/', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('/', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      </div>
+    </section>
+
+    <section id="tools">
+      <h1>Tools & Automation</h1>
+      <div class="project-grid">  
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/MCP.png" alt="Project Image">
+        <div class="overlay">MCP Note-Taking Assistant</div>
+        <div class="project-details">
+        Built a local natural language-driven note-taking server using MCP and UV, integrated with Claude for dynamic conversational control.         
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=SFmixzeeESE', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/ModelContextProtocol-note-assistant', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/TeleAI.png" alt="Project Image">
+        <div class="overlay">Telegram AI Assistant Bot</div>
+        <div class="project-details">
+          Built a voice- and text-enabled AI assistant using Gemini Pro and Faster-Whisper, deployed on Oracle Cloud for 24/7 low-cost operation.
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/Telegram_AI_Assistant', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/Telegram_AI_Assistant', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="toggleDetails(this)">
+        <img src="static/assets/portfolio-projects/aaa.jpg" alt="Project Image">
+        <div class="overlay">Hand Sync Presenter</div>
+        <div class="project-details">
+        Designed a computer vision-based system using OpenCV for gesture-controlled slide navigation with 88%+ accuracy.          
+          <div class="btn-group">
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=pDDjFSOUHFY', '_blank')">Demo</button>
+            <button class="btn" onclick="event.stopPropagation(); window.open('https://github.com/TRIPLE-A332/HandSync-Presenter', '_blank')">GitHub</button>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').slice(1);
+        const target = document.getElementById(targetId);
+        const container = document.querySelector('.snap-container');
+
+        if (target && container) {
+          const offsetTop = target.offsetTop;
+          container.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        const navLink = document.querySelector(`nav a[href="#${id}"]`);
+        if (entry.isIntersecting) {
+          document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+          navLink.classList.add('active');
+        }
+      });
+    }, {
+      root: document.querySelector('.snap-container'),
+      threshold: 0.6
+    });
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+      // Hide loader once content is loaded
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+      loader.classList.add('hidden');
+    });
+      document.getElementById('back-button').addEventListener('click', () => {
+      const loader = document.getElementById('page-loader');
+      const loaderText = loader.querySelector('.loader-text');
+
+      loaderText.textContent = "Loading Home Page...";
+      loader.classList.remove('hidden');  // Show loader
+      setTimeout(() => {
+        window.location.href = '/'; // Navigate to home
+      }, 1500); // Wait for animation to show
+    });
+      const sections = document.querySelectorAll('section');
+      const body = document.body;
+
+      const colorMap = {
+        'ml': 'light',    // dark background -> light text
+        'dl': 'light',
+        'ds': 'light',
+        'web': 'dark',    // light background -> dark text
+        'tools': 'dark'
+      };
+
+      const colorObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            if (colorMap[id] === 'light') {
+              body.classList.remove('dark-text');
+              body.classList.add('light-text');
+            } else {
+              body.classList.remove('light-text');
+              body.classList.add('dark-text');
+            }
+          }
+        });
+      }, {
+        root: document.querySelector('.snap-container'),
+        threshold: 0.6,
+      });
+
+      sections.forEach(section => colorObserver.observe(section));
+  </script>
+  <script>
+    function toggleDetails(card) {
+      const details = card.querySelector('.project-details');
+      details.style.display = details.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ali's Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/icons/favic.ico') }}">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/color_modes.css') }}">
+
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='js/animation.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/color_mode.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/project_slideshow.js') }}" defer></script>
+</head>
+<body>
+  <div id="preloader">
+    <div class="preloader-text">
+      <span class="hello hello-1">Hello</span>
+      <span class="hello hello-2">स्वागत है</span>
+      <span class="hello hello-4">سلام</span>
+      <span class="hello hello-3">Bonjour</span>
+      <span class="hello hello-5">Hola</span>
+    </div>
+  </div>
+
+  <div id="main-content" style="opacity: 0; transition: opacity 1s ease;">
+    <!-- HERO SECTION -->
+    <div id="hero">
+      <h5>I am</h5>
+      <h1>Ali Abdullah Ahmad</h1>
+      <h5></h5>
+      <p>An Aspiring <b>Data Scientist</b> Passionate About <b>ML & DL</b></p>
+      <div id="hero__animation">
+        <div id="hero__animation__img"></div>
+      </div>
+    </div>
+
+            <nav id="grid">
+            <div id="grid__tl">
+            <div id="grid__tl__btn">About</div>
+            <div id="grid__tl__content">
+                <div class="class">
+                    <div class="cards__content">
+                        <article>
+                            <img src="./static/assets/icons/experience.png" 
+                            alt="Experience icon" 
+                            class="icon">
+                            <h2>Experience</h2>
+                            <p>
+                            5 Months of AI <br />
+                            Development <br />
+                            Experience
+                            </p>
+                        </article>
+                        <p class="cards__content__text">
+                            Analyzed micro urban climate data for health impacts, handling data processing and AI model development. 
+                            Developed predictive models, identified trends, and collaborated on data interpretation.
+                        </p>
+                    </div>
+                    <div class="cards__content">
+                        <article>
+                            <img src="./static/assets/icons/education.png" 
+                            alt="Eduaction icon" 
+                            class="icon">
+                            <h2>Education</h2>
+                            <p>
+                            M. Sc. Computer Science [Expected Graduation- DEC 2025]
+                            </p>
+                        </article>
+                        <h4>
+                            Relevant Coursework
+                        </h4>
+                        <p class="cards__content__text">
+                            – Machine Learning (Funds & Applications)<br/>
+                            – Deep Learning<br/>
+                            – Data Mining<br/>
+                            – Data Science<br/>
+                            – Data Structures & Algorithms<br/>
+                            – Advanced Algorithms<br/>
+                            – Database Management Systems
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div id="grid__tr">
+            <div id="grid__tr__btn">Tech Stack</div>
+            <div id="grid__tr__content">
+                <div class="cards experience">
+                    <article class="experience__skill">
+                        <h2>Languages</h2>
+                        <div>
+                            <img src="./static/assets/icons/python.png" 
+                            alt="Python icon" 
+                            class="icon">
+                            <div>
+                                <h2>Python</h2>
+                                <p>Experienced</p>
+                            </div>
+                        </div>                    
+                        <div>
+                            <img src="./static/assets/icons/java.png" 
+                            alt="JAVA icon" 
+                            class="icon">
+                            <div>
+                                <h2>JAVA</h2>
+                                <p>Intermediate</p>
+                            </div>
+                        </div>                    
+                        <div>
+                            <img src="./static/assets/icons/psgsql.png" 
+                            alt="SQL icon" 
+                            class="icon">
+                            <div>
+                                <h2>PostgreSQL</h2>
+                                <p>Intermediate</p>
+                            </div>
+                        </div>                    
+                        <div>
+                            <img src="./static/assets/icons/git.png" 
+                            alt="Git icon" 
+                            class="icon">
+                            <div>
+                                <h2>Git</h2>
+                                <p>Basic</p>
+                            </div>
+                        </div>                    
+                    </article>
+                    <article class="experience__framework">
+                        <h2>Technologies/Frameworks</h2>
+                        <div class="framework__list">
+                            <p>Pandas</p> <p>Numpy</p>
+                            <p>Scikit-Learn</p> <p>Matplotlib</p>
+                            <p>Keras</p> <p>Streamlit</p>
+                            <p>OpenCV</p> <p>Flask</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            </div>
+            <div id="grid__bl">
+                <div id="grid__bl__btn">Projects</div>
+                <div id="grid__bl__content">
+                    <div id="grid__bl__content__projects">
+                        <div class="project p-1">
+                            <img 
+                            class="project__img project-1"
+                            src="static/assets/portfolio-projects/RAG.png" 
+                            alt="Project 1">
+                            <p class="project__title">Project 1</p>
+                            <h2 class="project__title">Domain Specific RAG</h2>
+                            <button class="btn" 
+                            onclick="window.open('https://www.youtube.com/watch?v=wOGWTzy-kc0')">
+                            Demo
+                            </button>
+                            <button class="btn" 
+                            onclick="window.open('https://github.com/TRIPLE-A332/RAG-medical-assistant')">
+                            Github
+                            </button>
+                        </div>
+                        <div class="project p-2">
+                            <img 
+                            class="project__img project-2"
+                            src="static/assets/portfolio-projects/handSync.png" 
+                            alt="Project 2">
+                            <p class="project__title">Project 2</p>
+                            <h2 class="project__title">HandSync Presenter</h2>
+                            <button class="btn" 
+                            onclick="window.open('https://www.youtube.com/watch?v=wOGWTzy-kc0')">
+                            Demo
+                            </button>
+                            <button class="btn" 
+                            onclick="window.open('https://github.com/TRIPLE-A332/HandSync-Presenter')">
+                            Github
+                            </button>
+                        </div>
+                        <div class="project p-3">
+                            <img 
+                            class="project__img project-3"
+                            src="static/assets/portfolio-projects/TeleAI.png" 
+                            alt="Project 3">
+                            <p class="project__title">Project 3</p>
+                            <h2 class="project__title">Telegram AI Assistant BOT</h2>
+                            <button class="btn" 
+                            onclick="window.open('https://github.com/TRIPLE-A332/')">
+                            Demo
+                            </button>
+                            <button class="btn" 
+                            onclick="window.open('https://github.com/TRIPLE-A332/Telegram_AI_Assistant')">
+                            Github
+                            </button>
+                        </div>
+                        <!-- View All Projects Card -->
+                            <div class="project view-all-card" style="text-align: center;">
+                            <img class="project__img" src="static/assets/icons/next.png" alt="View All Projects" style="object-fit: contain;">
+                            <h2 class="project__title">See More Projects</h2>
+                            <button class="btn" onclick="showProjectLoader()">Explore All Projects</button>
+                        </div>
+                        <button class="arrow" onclick="navigateProject(-1)">
+                        &#10094;
+                        </button>
+                        <button class="arrow" onclick="navigateProject(1)">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+            <div id="grid__br">
+                <div id="grid__br__btn">Contact</div>
+                <div id="grid__br__content">
+                    <h2 class="contact-text">Contact Me</h2>
+                    <div>
+                        <button class="btn btn-contact" 
+                        onclick="window.open('mailto:abdullah.ahmad16j@gmail.com')">
+                            Email
+                        </button>
+                        <button class="btn btn-contact" 
+                        onclick="window.open('https://www.linkedin.com/in/aliaabd/')">
+                            LinkedIn
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    
+    <!-- Resume Button -->
+    <div class="resume-container">
+      <a href="https://drive.google.com/file/d/17bh29TezpE0D73m-XeaKleZSPT7JobCT/view?usp=sharing" 
+         class="resume-button" 
+         target="_blank" 
+         rel="noopener noreferrer">
+         Resume
+      </a>
+    </div>
+  </div>
+
+  <!-- Color Mode Toggle -->
+  <div id="color-mode">
+    <div id="toggle-button" class="icon"></div>
+  </div>
+
+  <!-- Page loader for Projects button -->
+  <div id="page-loader">
+    <div class="loader-text">Loading Projects...</div>
+  </div>
+
+  <script>
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      const content = document.getElementById("main-content");
+      setTimeout(() => {
+        preloader.classList.add("hidden");
+        content.style.opacity = "1";
+      }, 2500);
+    });
+
+    function showProjectLoader() {
+      const loader = document.getElementById("page-loader");
+      loader.classList.add("active");
+      setTimeout(() => {
+        window.location.href = "/projects";  // Flask route, not projects.html
+      }, 1600);
+    }
+  </script>
+</body>
+</html>

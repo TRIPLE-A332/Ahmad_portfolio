@@ -1,0 +1,16 @@
+change favicon colors   montserrat https://favicon.io/favicon-generator/
+
+choose light dark colors 
+    update it in 
+        root{}
+            light 
+            dark 
+        accordingly
+
+style.css line 161 for info in about
+
+
+PRoject
+
+image/gifs/YT vids and links for demo and github
+html line 134
