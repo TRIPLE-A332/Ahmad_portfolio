@@ -33,7 +33,7 @@
       <h5>I am</h5>
       <h1>Ali Abdullah Ahmad</h1>
       <h5></h5>
-      <p>An Aspiring <b>Data Scientist</b> Passionate About <b>ML & DL</b></p>
+      <p><b>Software Engineer</b> with a passion for <b>Machine Learning & Deep Learning</b></p>
       <div id="hero__animation">
         <div id="hero__animation__img"></div>
       </div>
@@ -133,21 +133,20 @@
                     <article class="experience__framework">
                         <h2>Tech/Frameworks</h2>
                             <div class="framework__grid">
-                                <p>Pandas</p>
+                                <p>Docker</p>
+                                <p>FastAPI</p>
+                                <p>Flask</p>
                                 <p>Keras</p>
-                                <p>Numpy</p>
-                                <p>Sk-Learn</p>
-                                <p>TensorFlow</p>
-                                <p>PyTorch</p>
-                                <p>Sk-Learn</p>
                                 <p>LangChain</p>
                                 <p>Matplotlib</p>
-                                <p>Streamlit</p>
+                                <p>Numpy</p>
                                 <p>OpenCV</p>
-                                <p>Flask</p>
-                                <p>FastAPI</p>
+                                <p>Pandas</p>
+                                <p>PyTorch</p>
                                 <p>Qdrant</p>
-                                <p>Docker</p>
+                                <p>Sk-Learn</p>
+                                <p>Streamlit</p>
+                                <p>TensorFlow</p>
                             </div>
                     </article>
                 </div>
@@ -157,6 +156,16 @@
                 <div id="grid__bl__btn">Projects</div>
                 <div id="grid__bl__content">
                     <div id="grid__bl__content__projects">
+                                                <!-- View All Projects Card -->
+                        <div class="project p-0">
+                            <img 
+                                class="project__img"
+                                src="{{ url_for('static', filename='assets/portfolio-projects/project-1-dark.png') }}"
+                                alt="View All Projects">
+                            <p class="project__title"></p>
+                            <h2 class="project__title">Navigate left or right to browse projects</h2>
+                            <button class="btn" onclick="showProjectLoader()">Click to Explore All Projects</button>
+                        </div>
                         <div class="project p-1">
                             <img 
                             class="project__img project-1"
@@ -205,16 +214,6 @@
                             Github
                             </button>
                         </div>
-                        <!-- View All Projects Card -->
-                            <div class="project p-4">
-                            <img 
-                                class="project__img"
-                                src="{{ url_for('static', filename='assets/portfolio-projects/project-1-dark.png') }}"
-                                alt="View All Projects">
-                            <p class="project__title">Project 4</p>
-                            <h2 class="project__title">See More Projects</h2>
-                            <button class="btn" onclick="showProjectLoader()">Explore All Projects</button>
-                            </div>
                         <button class="arrow" onclick="navigateProject(-1)">
                         &#10094;
                         </button>
